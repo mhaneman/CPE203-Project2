@@ -113,7 +113,7 @@ final class WorldModel
       return false;
    }
 
-   public boolean moveToCrab(Entity crab,
+   public boolean moveToCrab(Crab crab,
                              Entity target, EventScheduler scheduler)
    {
       if (crab.getPosition().adjacent(target.getPosition()))
@@ -133,7 +133,6 @@ final class WorldModel
             {
                scheduler.unscheduleAllEvents(occupant.get());
             }
-
             moveEntity(crab, nextPos);
          }
          return false;
@@ -165,12 +164,13 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
             Integer.parseInt(properties[SGRASS_ROW]));
-         Entity entity = Entity.createSgrass(properties[SGRASS_ID],
-            pt,
-            Integer.parseInt(properties[SGRASS_ACTION_PERIOD]),
-            imageStore.getImageList(SGRASS_KEY));
+         Entity entity = new Sgrass(properties[SGRASS_ID], pt, imageStore.getImageList(SGRASS_KEY),
+                 0, 0,
+            Integer.parseInt(properties[SGRASS_ACTION_PERIOD]), 0);
          tryAddEntity(entity);
       }
+
+
 
       return properties.length == SGRASS_NUM_PROPERTIES;
    }
@@ -182,8 +182,8 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
             Integer.parseInt(properties[ATLANTIS_ROW]));
-         Entity entity = Entity.createAtlantis(properties[ATLANTIS_ID],
-            pt, imageStore.getImageList(ATLANTIS_KEY));
+         Entity entity = new Atlantis(properties[ATLANTIS_ID],
+            pt, imageStore.getImageList(ATLANTIS_KEY), 0, 0, 0, 0);
          tryAddEntity(entity);
       }
 
@@ -197,9 +197,9 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
             Integer.parseInt(properties[FISH_ROW]));
-         Entity entity = Entity.createFish(properties[FISH_ID],
-            pt, Integer.parseInt(properties[FISH_ACTION_PERIOD]),
-            imageStore.getImageList(FISH_KEY));
+         Entity entity = new Fish(properties[FISH_ID],
+            pt, imageStore.getImageList(FISH_KEY), 0, 0,
+                 Integer.parseInt(properties[FISH_ACTION_PERIOD]), 0);
          tryAddEntity(entity);
       }
 
@@ -214,8 +214,8 @@ final class WorldModel
          Point pt = new Point(
             Integer.parseInt(properties[OBSTACLE_COL]),
             Integer.parseInt(properties[OBSTACLE_ROW]));
-         Entity entity = Entity.createObstacle(properties[OBSTACLE_ID],
-            pt, imageStore.getImageList(OBSTACLE_KEY));
+         Entity entity = new Obstacle(properties[OBSTACLE_ID],
+            pt, imageStore.getImageList(OBSTACLE_KEY), 0, 0, 0, 0);
          tryAddEntity(entity);
       }
 
@@ -229,12 +229,10 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
             Integer.parseInt(properties[OCTO_ROW]));
-         Entity entity = Entity.createOctoNotFull(properties[OCTO_ID],
-            Integer.parseInt(properties[OCTO_LIMIT]),
-            pt,
+         Entity entity = new OctoNotFull(properties[OCTO_ID], pt, imageStore.getImageList(OCTO_KEY),
+            Integer.parseInt(properties[OCTO_LIMIT]), 0,
             Integer.parseInt(properties[OCTO_ACTION_PERIOD]),
-            Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]),
-            imageStore.getImageList(OCTO_KEY));
+            Integer.parseInt(properties[OCTO_ANIMATION_PERIOD]));
          tryAddEntity(entity);
       }
 
@@ -268,13 +266,12 @@ final class WorldModel
          getOccupancyCell(pos) != null;
    }
 
-   public Optional<Entity> findNearest(Point pos,
-                                       EntityKind kind)
+   public Optional<Entity> findNearest(Point pos, Class kind)
    {
       List<Entity> ofType = new LinkedList<>();
       for (Entity entity : this.entities)
       {
-         if (entity.getKind() == kind)
+         if (kind.isInstance(entity))
          {
             ofType.add(entity);
          }

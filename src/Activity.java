@@ -20,47 +20,6 @@ public class Activity implements Action{
 
     private void executeActivityAction(EventScheduler scheduler)
     {
-        switch (this.entity.getKind())
-        {
-            case OCTO_FULL:
-                this.entity.executeOctoFullActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case OCTO_NOT_FULL:
-                this.entity.executeOctoNotFullActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case FISH:
-                this.entity.executeFishActivity(this.world, this.imageStore,
-                        scheduler);
-                break;
-
-            case CRAB:
-                this.entity.executeCrabActivity(this.world,
-                        this.imageStore, scheduler);
-                break;
-
-            case QUAKE:
-                this.entity.executeQuakeActivity(this.world, this.imageStore,
-                        scheduler);
-                break;
-
-            case SGRASS:
-                this.entity.executeSgrassActivity(this.world, this.imageStore,
-                        scheduler);
-                break;
-
-            case ATLANTIS:
-                this.entity.executeAtlantisActivity(this.world, this.imageStore,
-                        scheduler);
-                break;
-
-            default:
-                throw new UnsupportedOperationException(
-                        String.format("executeActivityAction not supported for %s",
-                                this.entity.getKind()));
-        }
+        this.entity.executeActivity(this.world,  this.imageStore, scheduler);
     }
 }
