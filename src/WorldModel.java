@@ -113,32 +113,6 @@ final class WorldModel
       return false;
    }
 
-   public boolean moveToCrab(Crab crab,
-                             Entity target, EventScheduler scheduler)
-   {
-      if (crab.getPosition().adjacent(target.getPosition()))
-      {
-         removeEntity(target);
-         scheduler.unscheduleAllEvents(target);
-         return true;
-      }
-      else
-      {
-         Point nextPos = crab.nextPositionCrab(target.getPosition(), this);
-
-         if (!crab.getPosition().equals(nextPos))
-         {
-            Optional<Entity> occupant = getOccupant(nextPos);
-            if (occupant.isPresent())
-            {
-               scheduler.unscheduleAllEvents(occupant.get());
-            }
-            moveEntity(crab, nextPos);
-         }
-         return false;
-      }
-   }
-
    public Optional<Point> findOpenAround(Point pos)
    {
       for (int dy = -FISH_REACH; dy <= FISH_REACH; dy++)
@@ -229,6 +203,7 @@ final class WorldModel
       {
          Point pt = new Point(Integer.parseInt(properties[OCTO_COL]),
             Integer.parseInt(properties[OCTO_ROW]));
+
          Entity entity = new OctoNotFull(properties[OCTO_ID], pt, imageStore.getImageList(OCTO_KEY),
             Integer.parseInt(properties[OCTO_LIMIT]), 0,
             Integer.parseInt(properties[OCTO_ACTION_PERIOD]),

@@ -120,7 +120,7 @@ public class OctoNotFull implements EntityDynamic{
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
-        Optional<Entity> notFullTarget = world.findNearest(getPosition(), this.getClass());
+        Optional<Entity> notFullTarget = world.findNearest(getPosition(), Fish.class);
 
         if (!notFullTarget.isPresent() ||
                 !moveToNotFull(world, notFullTarget.get(), eventScheduler) ||

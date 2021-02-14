@@ -71,10 +71,8 @@ public class Sgrass implements EntityDynamic{
         return new Animation(this, null, null, repeatCount);
     }
 
-    public void executeActivity(WorldModel world,
-                                      ImageStore imageStore, EventScheduler eventScheduler)
+    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
-
         Optional<Point> openPt = world.findOpenAround(getPosition());
 
         if (openPt.isPresent())

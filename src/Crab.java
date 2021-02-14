@@ -74,15 +74,14 @@ public class Crab implements EntityDynamic{
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
-
-        Optional<Entity> crabTarget = world.findNearest(getPosition(), this.getClass());
+        Optional<Entity> crabTarget = world.findNearest(getPosition(), Sgrass.class);
         long nextPeriod = getActionPeriod();
 
         if (crabTarget.isPresent())
         {
             Point tgtPos = crabTarget.get().getPosition();
 
-            if (world.moveToCrab(this, crabTarget.get(), eventScheduler))
+            if (moveToCrab(world, crabTarget.get(), eventScheduler))
             {
                 Entity quake = new Quake(QUAKE_ID, tgtPos,
                         imageStore.getImageList(QUAKE_KEY), 0, 0,
@@ -143,6 +142,31 @@ public class Crab implements EntityDynamic{
             throw new UnsupportedOperationException(
                     String.format("getCurrentImage not supported for %s",
                             this));
+        }
+    }
+
+    public boolean moveToCrab(WorldModel worldModel, Entity target, EventScheduler scheduler)
+    {
+        if (getPosition().adjacent(target.getPosition()))
+        {
+            worldModel.removeEntity(target);
+            scheduler.unscheduleAllEvents(target);
+            return true;
+        }
+        else
+        {
+            Point nextPos = nextPositionCrab(target.getPosition(), worldModel);
+
+            if (!getPosition().equals(nextPos))
+            {
+                Optional<Entity> occupant = worldModel.getOccupant(nextPos);
+                if (occupant.isPresent())
+                {
+                    scheduler.unscheduleAllEvents(occupant.get());
+                }
+                worldModel.moveEntity(this, nextPos);
+            }
+            return false;
         }
     }
 

@@ -77,7 +77,6 @@ public class OctoFull implements EntityDynamic{
                     scheduler.unscheduleAllEvents(occupant.get());
                 }
 
-                System.out.println("yep");
                 world.moveEntity(this, nextPos);
             }
             return false;
@@ -110,7 +109,7 @@ public class OctoFull implements EntityDynamic{
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
-        Optional<Entity> fullTarget = world.findNearest(getPosition(), this.getClass());
+        Optional<Entity> fullTarget = world.findNearest(getPosition(), Atlantis.class);
 
         if (fullTarget.isPresent() &&
                 moveToFull(world, fullTarget.get(), eventScheduler))

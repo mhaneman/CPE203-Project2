@@ -15,7 +15,7 @@ public class Activity implements Action{
 
     public void executeAction(EventScheduler scheduler)
     {
-                executeActivityAction(scheduler);
+        executeActivityAction(scheduler);
     }
 
     private void executeActivityAction(EventScheduler scheduler)
