@@ -58,6 +58,9 @@ public class Obstacle implements EntityStatic{
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
+        throw new UnsupportedOperationException(
+                String.format("executeActivityAction not supported for %s",
+                        this.getClass()));
     }
 
     public int getAnimationPeriod()
@@ -67,11 +70,11 @@ public class Obstacle implements EntityStatic{
                         this.getClass()));
     }
 
-    public Action createActivityAction(WorldModel world,
-                                       ImageStore imageStore)
-    {
-        return new Activity(this, world, imageStore, 0);
-    }
+//    public Action createActivityAction(WorldModel world,
+//                                       ImageStore imageStore)
+//    {
+//        return new Activity(this, world, imageStore, 0);
+//    }
 
     public Action createAnimationAction(int repeatCount)
     {
