@@ -31,31 +31,6 @@ public class Fish extends EntityAction {
     private int resourceLimit;
     private int resourceCount;
     private int actionPeriod;
-
-    public int getActionPeriod() {
-        return actionPeriod;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public int getImageIndex() {
-        return imageIndex;
-    }
-
-    public List<PImage> getImages() {
-        return images;
-    }
-
     private int animationPeriod;
 
     public Fish(String id, Point position,
@@ -70,29 +45,6 @@ public class Fish extends EntityAction {
         this.resourceCount = resourceCount;
         this.actionPeriod = actionPeriod;
         this.animationPeriod = animationPeriod;
-    }
-
-    public void nextImage()
-    {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public int getAnimationPeriod()
-    {
-        throw new UnsupportedOperationException(
-                String.format("getAnimationPeriod not supported for %s",
-                        this.getClass()));
-    }
-
-    public Action createActivityAction(WorldModel world,
-                                       ImageStore imageStore)
-    {
-        return new Activity(this, world, imageStore, 0);
-    }
-
-    public Action createAnimationAction(int repeatCount)
-    {
-        return new Animation(this, null, null, repeatCount);
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
@@ -118,18 +70,31 @@ public class Fish extends EntityAction {
 
     }
 
-    public PImage getCurrentImage()
-    {
+    public int getActionPeriod() {
+        return actionPeriod;
+    }
 
-        if (this instanceof Entity)
-        {
-            return ((Entity)this).getImages().get(((Entity)this).getImageIndex());
-        }
-        else
-        {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                            this));
-        }
+    public String getId() {
+        return id;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public int getImageIndex() {
+        return imageIndex;
+    }
+
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
+    }
+
+    public List<PImage> getImages() {
+        return images;
     }
 }

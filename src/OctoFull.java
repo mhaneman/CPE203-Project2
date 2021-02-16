@@ -48,16 +48,6 @@ public class OctoFull extends EntityOcto {
         this.animationPeriod = animationPeriod;
     }
 
-    public void nextImage()
-    {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public int getAnimationPeriod()
-    {
-        return this.animationPeriod;
-    }
-
     public boolean moveToFull(WorldModel world,
                               Entity target, EventScheduler scheduler)
     {
@@ -96,12 +86,6 @@ public class OctoFull extends EntityOcto {
         ((EntityAction)octo).scheduleActions(world, imageStore, scheduler);
     }
 
-    public Action createActivityAction(WorldModel world,
-                                       ImageStore imageStore)
-    {
-        return new Activity(this, world, imageStore, 0);
-    }
-
     public Action createAnimationAction(int repeatCount)
     {
         return new Animation(this, null, null, repeatCount);
@@ -137,40 +121,9 @@ public class OctoFull extends EntityOcto {
                 getAnimationPeriod());
     }
 
-    public Point nextPositionOcto(Point destPos, WorldModel worldModel)
+    public int getAnimationPeriod()
     {
-        int horiz = Integer.signum(destPos.x - getPosition().x);
-        Point newPos = new Point(getPosition().x + horiz,
-                getPosition().y);
-
-        if (horiz == 0 || worldModel.isOccupied(newPos))
-        {
-            int vert = Integer.signum(destPos.y - getPosition().y);
-            newPos = new Point(getPosition().x,
-                    getPosition().y + vert);
-
-            if (vert == 0 || worldModel.isOccupied(newPos))
-            {
-                newPos = getPosition();
-            }
-        }
-
-        return newPos;
-    }
-
-    public PImage getCurrentImage()
-    {
-
-        if (this instanceof Entity)
-        {
-            return ((Entity)this).getImages().get(((Entity)this).getImageIndex());
-        }
-        else
-        {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                            this));
-        }
+        return this.animationPeriod;
     }
 
     public int getActionPeriod() {
@@ -191,6 +144,10 @@ public class OctoFull extends EntityOcto {
 
     public int getImageIndex() {
         return imageIndex;
+    }
+
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
     }
 
     public List<PImage> getImages() {

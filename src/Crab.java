@@ -48,30 +48,6 @@ public class Crab extends EntityMoves {
         this.animationPeriod = animationPeriod;
     }
 
-    public void nextImage()
-    {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public int getAnimationPeriod()
-    {
-        return this.animationPeriod;
-    }
-
-
-    public Action createActivityAction(WorldModel world,
-                                       ImageStore imageStore)
-    {
-        return new Activity(this, world, imageStore, 0);
-    }
-
-    public Action createAnimationAction(int repeatCount)
-    {
-        return new Animation(this, null, null, repeatCount);
-    }
-
-
-
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> crabTarget = world.findNearest(getPosition(), Sgrass.class);
@@ -130,21 +106,6 @@ public class Crab extends EntityMoves {
         return newPos;
     }
 
-    public PImage getCurrentImage()
-    {
-
-        if (this instanceof Entity)
-        {
-            return ((Entity)this).getImages().get(((Entity)this).getImageIndex());
-        }
-        else
-        {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                            this));
-        }
-    }
-
     public boolean moveToCrab(WorldModel worldModel, Entity target, EventScheduler scheduler)
     {
         if (getPosition().adjacent(target.getPosition()))
@@ -170,6 +131,11 @@ public class Crab extends EntityMoves {
         }
     }
 
+    public int getAnimationPeriod()
+    {
+        return this.animationPeriod;
+    }
+
     public int getActionPeriod() {
         return actionPeriod;
     }
@@ -188,6 +154,10 @@ public class Crab extends EntityMoves {
 
     public int getImageIndex() {
         return imageIndex;
+    }
+
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
     }
 
     public List<PImage> getImages() {

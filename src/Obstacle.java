@@ -45,28 +45,6 @@ public class Obstacle extends Entity {
         this.resourceCount = resourceCount;
         this.actionPeriod = actionPeriod;
         this.animationPeriod = animationPeriod;
-
-
-    }
-
-    public void nextImage()
-    {
-        this.imageIndex = (this.imageIndex + 1) % this.images.size();
-    }
-
-    public PImage getCurrentImage()
-    {
-
-        if (this instanceof Entity)
-        {
-            return ((Entity)this).getImages().get(((Entity)this).getImageIndex());
-        }
-        else
-        {
-            throw new UnsupportedOperationException(
-                    String.format("getCurrentImage not supported for %s",
-                            this));
-        }
     }
 
     public int getActionPeriod() {
@@ -87,6 +65,10 @@ public class Obstacle extends Entity {
 
     public int getImageIndex() {
         return imageIndex;
+    }
+
+    public void setImageIndex(int imageIndex) {
+        this.imageIndex = imageIndex;
     }
 
     public List<PImage> getImages() {
