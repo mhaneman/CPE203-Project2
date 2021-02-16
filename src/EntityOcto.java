@@ -1,6 +1,6 @@
 public abstract class EntityOcto extends EntityMoves
 {
-    public Point nextPositionOcto(Point destPos, WorldModel worldModel)
+    protected Point nextPositionOcto(Point destPos, WorldModel worldModel)
     {
         int horiz = Integer.signum(destPos.x - getPosition().x);
         Point newPos = new Point(getPosition().x + horiz,

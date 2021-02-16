@@ -1,6 +1,6 @@
 public abstract class EntityMoves extends EntityAnimates
 {
-    public void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         eventScheduler.scheduleEvent(this,
                 createActivityAction(world, imageStore),
