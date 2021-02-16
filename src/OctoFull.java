@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class OctoFull implements EntityDynamic{
+public class OctoFull extends EntityOcto {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;
@@ -93,7 +93,7 @@ public class OctoFull implements EntityDynamic{
         scheduler.unscheduleAllEvents(this);
 
         world.addEntity(octo);
-        octo.scheduleActions(world, imageStore, scheduler);
+        ((EntityAction)octo).scheduleActions(world, imageStore, scheduler);
     }
 
     public Action createActivityAction(WorldModel world,
@@ -115,7 +115,7 @@ public class OctoFull implements EntityDynamic{
                 moveToFull(world, fullTarget.get(), eventScheduler))
         {
             //at atlantis trigger animation
-            fullTarget.get().scheduleActions(world, imageStore, eventScheduler);
+            ((EntityAction)fullTarget.get()).scheduleActions(world, imageStore, eventScheduler);
 
             //transform to unfull
             transformFull(world, eventScheduler, imageStore);

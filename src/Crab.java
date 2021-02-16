@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class Crab implements EntityDynamic{
+public class Crab extends EntityMoves {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;
@@ -89,7 +89,7 @@ public class Crab implements EntityDynamic{
 
                 world.addEntity(quake);
                 nextPeriod += getActionPeriod();
-                quake.scheduleActions(world, imageStore, eventScheduler);
+                ((EntityAction)quake).scheduleActions(world, imageStore, eventScheduler);
             }
         }
 

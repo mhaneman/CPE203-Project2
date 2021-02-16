@@ -1,10 +1,9 @@
 import processing.core.PImage;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
-public class Fish implements EntityDynamic{
+public class Fish extends EntityAction {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;
@@ -108,7 +107,7 @@ public class Fish implements EntityDynamic{
                 CRAB_ANIMATION_MIN + rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN));
 
         world.addEntity(crab);
-        crab.scheduleActions(world, imageStore, eventScheduler);
+        ((EntityAction)crab).scheduleActions(world, imageStore, eventScheduler);
     }
 
     public void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)

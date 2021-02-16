@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class Sgrass implements EntityDynamic{
+public class Sgrass extends EntityAction {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;
@@ -82,7 +82,7 @@ public class Sgrass implements EntityDynamic{
                             rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN), 0);
 
             world.addEntity(fish);
-            fish.scheduleActions(world, imageStore, eventScheduler);
+            ((EntityAction)fish).scheduleActions(world, imageStore, eventScheduler);
         }
 
         eventScheduler.scheduleEvent(this,

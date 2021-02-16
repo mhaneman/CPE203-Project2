@@ -9,19 +9,15 @@ Entity ideally would includes functions for how all the entities in our virtual 
  */
 
 
-interface Entity
+public abstract class Entity
 {
-    void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler);
-    Action createAnimationAction(int repeatCount);
-    int getAnimationPeriod();
 
-    PImage getCurrentImage();
-    int getActionPeriod();
-    Point getPosition();
-    int getImageIndex();
-    List<PImage> getImages();
-    void setPosition(Point position);
-    void nextImage();
 
-    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler);
+    abstract PImage getCurrentImage();
+    abstract int getActionPeriod();
+    abstract Point getPosition();
+    abstract int getImageIndex();
+    abstract List<PImage> getImages();
+    abstract void setPosition(Point position);
+    abstract void nextImage();
 }

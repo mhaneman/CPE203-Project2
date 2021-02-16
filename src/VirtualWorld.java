@@ -166,7 +166,7 @@ public final class VirtualWorld
       {
          //Only start actions for entities that include action (not those with just animations)
          if (entity.getActionPeriod() > 0)
-            entity.scheduleActions(world, imageStore, scheduler);
+            ((EntityAction)entity).scheduleActions(world, imageStore, scheduler);
       }
    }
 

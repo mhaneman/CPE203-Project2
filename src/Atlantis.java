@@ -1,10 +1,9 @@
 import processing.core.PImage;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
-public class Atlantis implements EntityDynamic{
+public class Atlantis extends EntityAnimates {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class OctoNotFull implements EntityDynamic{
+public class OctoNotFull extends EntityOcto {
     private static final String QUAKE_ID = "quake";
     private static final int QUAKE_ACTION_PERIOD = 1100;
     private static final int QUAKE_ANIMATION_PERIOD = 100;
@@ -99,7 +99,7 @@ public class OctoNotFull implements EntityDynamic{
             scheduler.unscheduleAllEvents(this);
 
             world.addEntity(octo);
-            octo.scheduleActions(world, imageStore, scheduler);
+            ((EntityAction)octo).scheduleActions(world, imageStore, scheduler);
 
             return true;
         }
