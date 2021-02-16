@@ -32,8 +32,6 @@ public class Atlantis extends EntityAnimates {
         world.removeEntity(this);
     }
 
-
-
     public void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         eventScheduler.scheduleEvent(this,

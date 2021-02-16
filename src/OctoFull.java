@@ -26,7 +26,7 @@ public class OctoFull extends EntityOcto {
         this.animationPeriod = animationPeriod;
     }
 
-    public boolean moveToFull(WorldModel world,
+    private boolean moveToFull(WorldModel world,
                               Entity target, EventScheduler scheduler)
     {
         if (this.position.adjacent(target.getPosition()))
@@ -51,7 +51,7 @@ public class OctoFull extends EntityOcto {
         }
     }
 
-    public void transformFull(WorldModel world,
+    private void transformFull(WorldModel world,
                               EventScheduler scheduler, ImageStore imageStore)
     {
         Entity octo = new OctoNotFull(this.id, this.position, this.images,

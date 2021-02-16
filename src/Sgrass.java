@@ -26,12 +26,6 @@ public class Sgrass extends EntityAction {
         this.actionPeriod = actionPeriod;
     }
 
-    public Action createActivityAction(WorldModel world,
-                                       ImageStore imageStore)
-    {
-        return new Activity(this, world, imageStore, 0);
-    }
-
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Point> openPt = world.findOpenAround(getPosition());

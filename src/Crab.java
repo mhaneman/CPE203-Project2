@@ -54,7 +54,7 @@ public class Crab extends EntityMoves {
                 nextPeriod);
     }
 
-    public Point nextPositionCrab(Point destPos, WorldModel worldModel)
+    private Point nextPositionCrab(Point destPos, WorldModel worldModel)
     {
         int horiz = Integer.signum(destPos.x - getPosition().x);
         Point newPos = new Point(getPosition().x + horiz,
@@ -77,7 +77,7 @@ public class Crab extends EntityMoves {
         return newPos;
     }
 
-    public boolean moveToCrab(WorldModel worldModel, Entity target, EventScheduler scheduler)
+    private boolean moveToCrab(WorldModel worldModel, Entity target, EventScheduler scheduler)
     {
         if (getPosition().adjacent(target.getPosition()))
         {
