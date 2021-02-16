@@ -16,23 +16,18 @@ public class Fish extends EntityAction {
     private Point position;
     private List<PImage> images;
     private int imageIndex;
-    private int resourceLimit;
-    private int resourceCount;
     private int actionPeriod;
-    private int animationPeriod;
+
 
     public Fish(String id, Point position,
-                  List<PImage> images, int resourceLimit, int resourceCount,
-                  int actionPeriod, int animationPeriod)
+                  List<PImage> images,
+                  int actionPeriod)
     {
         this.id = id;
         this.position = position;
         this.images = images;
         this.imageIndex = 0;
-        this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
         this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
@@ -43,7 +38,7 @@ public class Fish extends EntityAction {
         eventScheduler.unscheduleAllEvents(this);
 
         Entity crab = new Crab(getId() + CRAB_ID_SUFFIX, pos, imageStore.getImageList(CRAB_KEY),
-                0, 0, getActionPeriod() / CRAB_PERIOD_SCALE,
+                getActionPeriod() / CRAB_PERIOD_SCALE,
                 CRAB_ANIMATION_MIN + rand.nextInt(CRAB_ANIMATION_MAX - CRAB_ANIMATION_MIN));
 
         world.addEntity(crab);

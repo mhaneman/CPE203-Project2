@@ -15,23 +15,15 @@ public class Sgrass extends EntityAction {
     private Point position;
     private List<PImage> images;
     private int imageIndex;
-    private int resourceLimit;
-    private int resourceCount;
     private int actionPeriod;
-    private int animationPeriod;
 
-    public Sgrass(String id, Point position,
-                  List<PImage> images, int resourceLimit, int resourceCount,
-                  int actionPeriod, int animationPeriod)
+    public Sgrass(String id, Point position, List<PImage> images, int actionPeriod)
     {
         this.id = id;
         this.position = position;
         this.images = images;
         this.imageIndex = 0;
-        this.resourceLimit = resourceLimit;
-        this.resourceCount = resourceCount;
         this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
     }
 
     public Action createActivityAction(WorldModel world,
@@ -47,8 +39,8 @@ public class Sgrass extends EntityAction {
         if (openPt.isPresent())
         {
             Entity fish = new Fish(FISH_ID_PREFIX + getId(),
-                    openPt.get(), imageStore.getImageList(FISH_KEY), 0, 0, FISH_CORRUPT_MIN +
-                            rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN), 0);
+                    openPt.get(), imageStore.getImageList(FISH_KEY),FISH_CORRUPT_MIN +
+                            rand.nextInt(FISH_CORRUPT_MAX - FISH_CORRUPT_MIN));
 
             world.addEntity(fish);
             ((EntityAction)fish).scheduleActions(world, imageStore, eventScheduler);

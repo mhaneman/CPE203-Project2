@@ -63,7 +63,7 @@ public class OctoNotFull extends EntityOcto {
         if (this.resourceCount >= this.resourceLimit)
         {
             Entity octo = new OctoFull(id, position, images,
-                resourceLimit, resourceLimit, actionPeriod, animationPeriod);
+                resourceLimit, actionPeriod, animationPeriod);
 
             world.removeEntity(this);
             scheduler.unscheduleAllEvents(this);

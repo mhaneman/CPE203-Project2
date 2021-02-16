@@ -139,8 +139,7 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[SGRASS_COL]),
             Integer.parseInt(properties[SGRASS_ROW]));
          Entity entity = new Sgrass(properties[SGRASS_ID], pt, imageStore.getImageList(SGRASS_KEY),
-                 0, 0,
-            Integer.parseInt(properties[SGRASS_ACTION_PERIOD]), 0);
+                 Integer.parseInt(properties[SGRASS_ACTION_PERIOD]));
          tryAddEntity(entity);
       }
 
@@ -157,7 +156,7 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[ATLANTIS_COL]),
             Integer.parseInt(properties[ATLANTIS_ROW]));
          Entity entity = new Atlantis(properties[ATLANTIS_ID],
-            pt, imageStore.getImageList(ATLANTIS_KEY), 0, 0, 0, 0);
+            pt, imageStore.getImageList(ATLANTIS_KEY), 0, 0);
          tryAddEntity(entity);
       }
 
@@ -172,8 +171,8 @@ final class WorldModel
          Point pt = new Point(Integer.parseInt(properties[FISH_COL]),
             Integer.parseInt(properties[FISH_ROW]));
          Entity entity = new Fish(properties[FISH_ID],
-            pt, imageStore.getImageList(FISH_KEY), 0, 0,
-                 Integer.parseInt(properties[FISH_ACTION_PERIOD]), 0);
+            pt, imageStore.getImageList(FISH_KEY),
+                 Integer.parseInt(properties[FISH_ACTION_PERIOD]));
          tryAddEntity(entity);
       }
 
@@ -189,7 +188,7 @@ final class WorldModel
             Integer.parseInt(properties[OBSTACLE_COL]),
             Integer.parseInt(properties[OBSTACLE_ROW]));
          Entity entity = new Obstacle(properties[OBSTACLE_ID],
-            pt, imageStore.getImageList(OBSTACLE_KEY), 0, 0, 0, 0);
+            pt, imageStore.getImageList(OBSTACLE_KEY), 0);
          tryAddEntity(entity);
       }
 
