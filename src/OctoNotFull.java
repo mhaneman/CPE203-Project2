@@ -5,26 +5,6 @@ import java.util.Optional;
 import java.util.Random;
 
 public class OctoNotFull extends EntityOcto {
-    private static final String QUAKE_ID = "quake";
-    private static final int QUAKE_ACTION_PERIOD = 1100;
-    private static final int QUAKE_ANIMATION_PERIOD = 100;
-    private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
-    public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
-
-    public static final String QUAKE_KEY = "quake";
-    private static final String FISH_ID_PREFIX = "fish -- ";
-    private static final int FISH_CORRUPT_MIN = 20000;
-    private static final int FISH_CORRUPT_MAX = 30000;
-
-    public static final String CRAB_KEY = "crab";
-    public static final String CRAB_ID_SUFFIX = " -- crab";
-    public static final int CRAB_PERIOD_SCALE = 4;
-    public static final int CRAB_ANIMATION_MIN = 50;
-    public static final int CRAB_ANIMATION_MAX = 150;
-
-    private static final String FISH_KEY = "fish";
-    private static final Random rand = new Random();
-
     private String id;
     private Point position;
     private List<PImage> images;
@@ -109,15 +89,6 @@ public class OctoNotFull extends EntityOcto {
                     createActivityAction(world, imageStore),
                     getActionPeriod());
         }
-    }
-
-    public void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
-    {
-        eventScheduler.scheduleEvent(this,
-                createActivityAction(world, imageStore),
-                getActionPeriod());
-        eventScheduler.scheduleEvent(this,
-                createAnimationAction(0), getAnimationPeriod());
     }
 
     public int getAnimationPeriod()
