@@ -20,7 +20,7 @@ public abstract class EntityMoves extends EntityAnimates
 
     abstract boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant);
 
-    public Point nextPosition(Point destPos, WorldModel worldModel)
+    protected Point nextPosition(Point destPos, WorldModel worldModel)
     {
         int horiz = Integer.signum(destPos.x - position.x);
         Point newPos = new Point(position.x + horiz, position.y);

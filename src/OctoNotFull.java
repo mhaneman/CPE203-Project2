@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.Random;
 
 public class OctoNotFull extends EntityOcto {
-    private int resourceCount;
+    protected int resourceCount;
     public OctoNotFull(String id, Point position,
                   List<PImage> images, int resourceLimit, int resourceCount,
                   int actionPeriod, int animationPeriod)
