@@ -188,7 +188,7 @@ final class WorldModel
             Integer.parseInt(properties[OBSTACLE_COL]),
             Integer.parseInt(properties[OBSTACLE_ROW]));
          Entity entity = new Obstacle(properties[OBSTACLE_ID],
-            pt, imageStore.getImageList(OBSTACLE_KEY), 0);
+            pt, imageStore.getImageList(OBSTACLE_KEY));
          tryAddEntity(entity);
       }
 
@@ -311,7 +311,7 @@ final class WorldModel
 
    private void tryAddEntity(Entity entity)
    {
-      if (this.isOccupied(entity.getPosition()))
+      if (this.isOccupied(entity.position))
       {
          // arguably the wrong type of exception, but we are not
          // defining our own exceptions yet
@@ -330,7 +330,7 @@ final class WorldModel
 
          /* this moves the entity just outside of the grid for
             debugging purposes */
-         entity.setPosition(new Point(-1, -1));
+         entity.position = (new Point(-1, -1));
          this.entities.remove(entity);
          this.setOccupancyCell(pos, null);
       }
@@ -338,18 +338,18 @@ final class WorldModel
 
    public void removeEntity(Entity entity)
    {
-      this.removeEntityAt(entity.getPosition());
+      this.removeEntityAt(entity.position);
    }
 
    public void moveEntity(Entity entity, Point pos)
    {
-      Point oldPos = entity.getPosition();
+      Point oldPos = entity.position;
       if (this.withinBounds(pos) && !pos.equals(oldPos))
       {
          this.setOccupancyCell(oldPos, null);
          this.removeEntityAt(pos);
          this.setOccupancyCell(pos, entity);
-         entity.setPosition(pos);
+         entity.position = pos;
       }
    }
 
@@ -359,9 +359,9 @@ final class WorldModel
        */
     public void addEntity(Entity entity)
     {
-       if (this.withinBounds(entity.getPosition()))
+       if (this.withinBounds(entity.position))
        {
-          this.setOccupancyCell(entity.getPosition(), entity);
+          this.setOccupancyCell(entity.position, entity);
           this.entities.add(entity);
        }
     }
@@ -376,11 +376,11 @@ final class WorldModel
       else
       {
          Entity nearest = entities.get(0);
-         int nearestDistance = nearest.getPosition().distanceSquared(pos);
+         int nearestDistance = nearest.position.distanceSquared(pos);
 
          for (Entity other : entities)
          {
-            int otherDistance = other.getPosition().distanceSquared(pos);
+            int otherDistance = other.position.distanceSquared(pos);
 
             if (otherDistance < nearestDistance)
             {

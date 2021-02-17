@@ -8,18 +8,24 @@ Entity ideally would includes functions for how all the entities in our virtual 
 
 public abstract class Entity
 {
-    abstract Point getPosition();
-    abstract void setPosition(Point position);
-    abstract int getImageIndex();
-    abstract void setImageIndex(int imageIndex);
-    abstract List<PImage> getImages();
+    protected String id;
+    protected Point position;
+    protected List<PImage> images;
+    protected int imageIndex;
+
+    public Entity(String id, Point position, List<PImage> images)
+    {
+        this.id = id;
+        this.position = position;
+        this.images = images;
+    }
 
     protected void nextImage()
     {
-        this.setImageIndex((this.getImageIndex() + 1) % this.getImages().size());
+        this.imageIndex = ((this.imageIndex + 1) % this.images.size());
     }
     protected PImage getCurrentImage()
     {
-        return this.getImages().get(this.getImageIndex());
+        return this.images.get(this.imageIndex);
     }
 }

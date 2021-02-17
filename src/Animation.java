@@ -22,7 +22,7 @@ public class Animation implements Action{
             scheduler.scheduleEvent(this.entity,
                     ((EntityAnimates)this.entity).createAnimationAction(
                             Math.max(this.repeatCount - 1, 0)),
-                    ((EntityAnimates)this.entity).getAnimationPeriod());
+                    ((EntityAnimates)this.entity).animationPeriod);
         }
     }
 }

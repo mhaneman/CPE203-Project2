@@ -5,27 +5,14 @@ import java.util.Optional;
 import java.util.Random;
 
 public class OctoNotFull extends EntityOcto {
-    private String id;
-    private Point position;
-    private List<PImage> images;
-    private int imageIndex;
-    private int resourceLimit;
     private int resourceCount;
-    private int actionPeriod;
-    private int animationPeriod;
-
     public OctoNotFull(String id, Point position,
                   List<PImage> images, int resourceLimit, int resourceCount,
                   int actionPeriod, int animationPeriod)
     {
-        this.id = id;
-        this.position = position;
-        this.images = images;
-        this.imageIndex = 0;
-        this.resourceLimit = resourceLimit;
+        super(id, position, images, resourceLimit, actionPeriod, animationPeriod);
         this.resourceCount = resourceCount;
-        this.actionPeriod = actionPeriod;
-        this.animationPeriod = animationPeriod;
+
     }
 
     Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
@@ -39,7 +26,7 @@ public class OctoNotFull extends EntityOcto {
 
     void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
-        Optional<Entity> notFullTarget = world.findNearest(getPosition(), Fish.class);
+        Optional<Entity> notFullTarget = world.findNearest(position, Fish.class);
 
         if (!notFullTarget.isPresent() ||
                 !moveTo(world, notFullTarget.get(), eventScheduler) ||
@@ -47,7 +34,7 @@ public class OctoNotFull extends EntityOcto {
         {
             eventScheduler.scheduleEvent(this,
                     createActivityAction(world, imageStore),
-                    getActionPeriod());
+                    actionPeriod);
         }
     }
 
@@ -62,34 +49,5 @@ public class OctoNotFull extends EntityOcto {
     boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
     {
         return worldModel.isOccupied(newPos);
-    }
-
-    public int getAnimationPeriod()
-    {
-        return this.animationPeriod;
-    }
-
-    public int getActionPeriod() {
-        return actionPeriod;
-    }
-
-    public Point getPosition() {
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-    }
-
-    public int getImageIndex() {
-        return imageIndex;
-    }
-
-    public void setImageIndex(int imageIndex) {
-        this.imageIndex = imageIndex;
-    }
-
-    public List<PImage> getImages() {
-        return images;
     }
 }
