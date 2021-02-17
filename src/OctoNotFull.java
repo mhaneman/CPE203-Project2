@@ -15,7 +15,7 @@ public class OctoNotFull extends EntityOcto {
 
     }
 
-    Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
+    protected Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         if (this.resourceCount >= this.resourceLimit) {
             return new OctoFull(id, position, images,
@@ -24,7 +24,7 @@ public class OctoNotFull extends EntityOcto {
         return null;
     }
 
-    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> notFullTarget = world.findNearest(position, Fish.class);
 
@@ -39,14 +39,14 @@ public class OctoNotFull extends EntityOcto {
     }
 
     @Override
-    void _moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+    protected void _moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         this.resourceCount += 1;
         world.removeEntity(target);
         scheduler.unscheduleAllEvents(target);
     }
 
     @Override
-    boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
+    protected boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
     {
         return worldModel.isOccupied(newPos);
     }

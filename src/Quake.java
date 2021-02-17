@@ -11,7 +11,7 @@ public class Quake extends EntityAnimates {
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    void executeActivity(WorldModel world,
+    protected void executeActivity(WorldModel world,
                                      ImageStore imageStore, EventScheduler eventScheduler)
     {
 
@@ -19,7 +19,7 @@ public class Quake extends EntityAnimates {
         world.removeEntity(this);
     }
 
-    void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         eventScheduler.scheduleEvent(this,
                 createActivityAction(world, imageStore),

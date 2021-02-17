@@ -19,7 +19,7 @@ public class Fish extends EntityAction {
         super(id, position, images, actionPeriod);
     }
 
-    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Point pos = position;  // store current position before removing
 
@@ -34,7 +34,7 @@ public class Fish extends EntityAction {
         ((EntityAction)crab).scheduleActions(world, imageStore, eventScheduler);
     }
 
-    void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         eventScheduler.scheduleEvent(this,
                 createActivityAction(world, imageStore),

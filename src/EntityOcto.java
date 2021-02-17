@@ -11,7 +11,7 @@ public abstract class EntityOcto extends EntityMoves
         this.resourceLimit = resourceLimit;
     }
 
-    abstract Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+    protected abstract Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore);
     protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
         if (_transform(world, scheduler, imageStore) != null)

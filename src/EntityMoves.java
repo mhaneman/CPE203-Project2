@@ -18,7 +18,7 @@ public abstract class EntityMoves extends EntityAnimates
                 animationPeriod);
     }
 
-    abstract boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant);
+    protected abstract boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant);
 
     protected Point nextPosition(Point destPos, WorldModel worldModel)
     {
@@ -42,7 +42,7 @@ public abstract class EntityMoves extends EntityAnimates
         return newPos;
     }
 
-    abstract void _moveTo(WorldModel world, Entity target, EventScheduler scheduler);
+    protected abstract void _moveTo(WorldModel world, Entity target, EventScheduler scheduler);
     protected boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler)
     {
         if (this.position.adjacent(target.position))

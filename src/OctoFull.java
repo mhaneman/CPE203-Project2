@@ -13,7 +13,7 @@ public class OctoFull extends EntityOcto {
         super(id, position, images, resourceLimit, actionPeriod, animationPeriod);
     }
 
-    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> fullTarget = world.findNearest(position, Atlantis.class);
 
@@ -35,18 +35,18 @@ public class OctoFull extends EntityOcto {
     }
 
     @Override
-    Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+    protected Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
         return new OctoNotFull(this.id, this.position, this.images,
                 this.resourceLimit, 0, this.actionPeriod, this.animationPeriod);
     }
 
     @Override
-    void _moveTo(WorldModel world, Entity target, EventScheduler scheduler)
+    protected void _moveTo(WorldModel world, Entity target, EventScheduler scheduler)
     {
     }
 
     @Override
-    boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
+    protected boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
     {
         return worldModel.isOccupied(newPos);
     }

@@ -11,8 +11,8 @@ public abstract class EntityAction extends Entity
         this.actionPeriod = actionPeriod;
     }
 
-    abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler);
-    abstract void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler);
+    protected abstract void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler);
+    protected abstract void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler);
 
     protected Action createActivityAction(WorldModel world,
                                        ImageStore imageStore)

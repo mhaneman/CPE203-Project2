@@ -16,7 +16,7 @@ public class Crab extends EntityMoves {
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> crabTarget = world.findNearest(position, Sgrass.class);
         long nextPeriod = actionPeriod;
@@ -42,12 +42,12 @@ public class Crab extends EntityMoves {
                 nextPeriod);
     }
 
-    void _moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+    protected void _moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
         world.removeEntity(target);
         scheduler.unscheduleAllEvents(target);
     }
 
-    boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
+    protected boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
     {
         return occupant.isPresent() && !(occupant.get() instanceof Fish);
     }

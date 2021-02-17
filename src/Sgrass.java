@@ -16,7 +16,7 @@ public class Sgrass extends EntityAction {
         super(id, position, images, actionPeriod);
     }
 
-    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Point> openPt = world.findOpenAround(position);
 
@@ -35,7 +35,7 @@ public class Sgrass extends EntityAction {
                 actionPeriod);
     }
 
-    void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    protected void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         eventScheduler.scheduleEvent(this,
                 createActivityAction(world, imageStore),
