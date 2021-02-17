@@ -24,7 +24,7 @@ public class Atlantis extends EntityAnimates {
         this.animationPeriod = animationPeriod;
     }
 
-    public void executeActivity(WorldModel world,
+    void executeActivity(WorldModel world,
                                         ImageStore imageStore, EventScheduler eventScheduler)
     {
 
@@ -32,7 +32,7 @@ public class Atlantis extends EntityAnimates {
         world.removeEntity(this);
     }
 
-    public void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    void scheduleActions(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         eventScheduler.scheduleEvent(this,
                 createAnimationAction(ATLANTIS_ANIMATION_REPEAT_COUNT),

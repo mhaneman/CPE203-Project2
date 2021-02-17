@@ -26,56 +26,18 @@ public class OctoFull extends EntityOcto {
         this.animationPeriod = animationPeriod;
     }
 
-    private boolean moveToFull(WorldModel world,
-                              Entity target, EventScheduler scheduler)
-    {
-        if (this.position.adjacent(target.getPosition()))
-        {
-            return true;
-        }
-        else
-        {
-            Point nextPos = nextPositionOcto(target.getPosition(), world);
-
-            if (!this.position.equals(nextPos))
-            {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent())
-                {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
-    }
-
-    private void transformFull(WorldModel world,
-                              EventScheduler scheduler, ImageStore imageStore)
-    {
-        Entity octo = new OctoNotFull(this.id, this.position, this.images,
-                this.resourceLimit, 0, this.actionPeriod, this.animationPeriod);
-
-        world.removeEntity(this);
-        scheduler.unscheduleAllEvents(this);
-
-        world.addEntity(octo);
-        ((EntityAction)octo).scheduleActions(world, imageStore, scheduler);
-    }
-
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> fullTarget = world.findNearest(getPosition(), Atlantis.class);
 
         if (fullTarget.isPresent() &&
-                moveToFull(world, fullTarget.get(), eventScheduler))
+                moveTo(world, fullTarget.get(), eventScheduler))
         {
             //at atlantis trigger animation
             ((EntityAction)fullTarget.get()).scheduleActions(world, imageStore, eventScheduler);
 
             //transform to unfull
-            transformFull(world, eventScheduler, imageStore);
+            transform(world, eventScheduler, imageStore);
         }
         else
         {
@@ -85,6 +47,17 @@ public class OctoFull extends EntityOcto {
         }
     }
 
+    @Override
+    void _moveTo(WorldModel world, Entity target, EventScheduler scheduler)
+    {
+    }
+
+    @Override
+    boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
+    {
+        return worldModel.isOccupied(newPos);
+    }
+
     public int getAnimationPeriod()
     {
         return this.animationPeriod;
@@ -92,10 +65,6 @@ public class OctoFull extends EntityOcto {
 
     public int getActionPeriod() {
         return actionPeriod;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public Point getPosition() {
@@ -116,5 +85,11 @@ public class OctoFull extends EntityOcto {
 
     public List<PImage> getImages() {
         return images;
+    }
+
+    @Override
+    Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
+        return new OctoNotFull(this.id, this.position, this.images,
+                this.resourceLimit, 0, this.actionPeriod, this.animationPeriod);
     }
 }

@@ -28,67 +28,40 @@ public class OctoNotFull extends EntityOcto {
         this.animationPeriod = animationPeriod;
     }
 
-    private boolean moveToNotFull(WorldModel world,
-                                 Entity target, EventScheduler scheduler)
+    Entity _transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
-        if (this.position.adjacent(target.getPosition()))
-        {
-            this.resourceCount += 1;
-            world.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-
-            return true;
+        if (this.resourceCount >= this.resourceLimit) {
+            return new OctoFull(id, position, images,
+                    resourceLimit, actionPeriod, animationPeriod);
         }
-        else
-        {
-            Point nextPos = nextPositionOcto(target.getPosition(), world);
-
-            if (!this.position.equals(nextPos))
-            {
-                Optional<Entity> occupant = world.getOccupant(nextPos);
-                if (occupant.isPresent())
-                {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-
-                world.moveEntity(this, nextPos);
-            }
-            return false;
-        }
+        return null;
     }
 
-    private boolean transformNotFull(WorldModel world,
-                                    EventScheduler scheduler, ImageStore imageStore)
-    {
-        if (this.resourceCount >= this.resourceLimit)
-        {
-            Entity octo = new OctoFull(id, position, images,
-                resourceLimit, actionPeriod, animationPeriod);
-
-            world.removeEntity(this);
-            scheduler.unscheduleAllEvents(this);
-
-            world.addEntity(octo);
-            ((EntityAction)octo).scheduleActions(world, imageStore, scheduler);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> notFullTarget = world.findNearest(getPosition(), Fish.class);
 
         if (!notFullTarget.isPresent() ||
-                !moveToNotFull(world, notFullTarget.get(), eventScheduler) ||
-                !transformNotFull(world, eventScheduler, imageStore))
+                !moveTo(world, notFullTarget.get(), eventScheduler) ||
+                !transform(world, eventScheduler, imageStore))
         {
             eventScheduler.scheduleEvent(this,
                     createActivityAction(world, imageStore),
                     getActionPeriod());
         }
+    }
+
+    @Override
+    void _moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+        this.resourceCount += 1;
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
+    }
+
+    @Override
+    boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
+    {
+        return worldModel.isOccupied(newPos);
     }
 
     public int getAnimationPeriod()
@@ -98,10 +71,6 @@ public class OctoNotFull extends EntityOcto {
 
     public int getActionPeriod() {
         return actionPeriod;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public Point getPosition() {

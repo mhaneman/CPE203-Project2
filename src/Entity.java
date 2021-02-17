@@ -13,7 +13,6 @@ public abstract class Entity
     abstract int getImageIndex();
     abstract void setImageIndex(int imageIndex);
     abstract List<PImage> getImages();
-    abstract int getActionPeriod();
 
     protected void nextImage()
     {

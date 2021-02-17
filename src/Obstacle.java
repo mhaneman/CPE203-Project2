@@ -19,14 +19,6 @@ public class Obstacle extends Entity {
         this.actionPeriod = actionPeriod;
     }
 
-    public int getActionPeriod() {
-        return actionPeriod;
-    }
-
-    public String getId() {
-        return id;
-    }
-
     public Point getPosition() {
         return position;
     }

@@ -28,7 +28,7 @@ public class Crab extends EntityMoves {
         this.animationPeriod = animationPeriod;
     }
 
-    public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
+    void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler eventScheduler)
     {
         Optional<Entity> crabTarget = world.findNearest(getPosition(), Sgrass.class);
         long nextPeriod = getActionPeriod();
@@ -37,7 +37,7 @@ public class Crab extends EntityMoves {
         {
             Point tgtPos = crabTarget.get().getPosition();
 
-            if (moveToCrab(world, crabTarget.get(), eventScheduler))
+            if (moveTo(world, crabTarget.get(), eventScheduler))
             {
                 Entity quake = new Quake(QUAKE_ID, tgtPos,
                         imageStore.getImageList(QUAKE_KEY),
@@ -54,52 +54,14 @@ public class Crab extends EntityMoves {
                 nextPeriod);
     }
 
-    private Point nextPositionCrab(Point destPos, WorldModel worldModel)
-    {
-        int horiz = Integer.signum(destPos.x - getPosition().x);
-        Point newPos = new Point(getPosition().x + horiz,
-                getPosition().y);
-
-        Optional<Entity> occupant = worldModel.getOccupant(newPos);
-
-        if (horiz == 0 || (occupant.isPresent() && !(occupant.get() instanceof Fish)))
-        {
-            int vert = Integer.signum(destPos.y - getPosition().y);
-            newPos = new Point(getPosition().x, getPosition().y + vert);
-            occupant = worldModel.getOccupant(newPos);
-
-            if (vert == 0 || (occupant.isPresent() && !(occupant.get() instanceof Fish)))
-            {
-                newPos = getPosition();
-            }
-        }
-
-        return newPos;
+    void _moveTo(WorldModel world, Entity target, EventScheduler scheduler) {
+        world.removeEntity(target);
+        scheduler.unscheduleAllEvents(target);
     }
 
-    private boolean moveToCrab(WorldModel worldModel, Entity target, EventScheduler scheduler)
+    public boolean _nextPosition(WorldModel worldModel, Point newPos, Optional<Entity> occupant)
     {
-        if (getPosition().adjacent(target.getPosition()))
-        {
-            worldModel.removeEntity(target);
-            scheduler.unscheduleAllEvents(target);
-            return true;
-        }
-        else
-        {
-            Point nextPos = nextPositionCrab(target.getPosition(), worldModel);
-
-            if (!getPosition().equals(nextPos))
-            {
-                Optional<Entity> occupant = worldModel.getOccupant(nextPos);
-                if (occupant.isPresent())
-                {
-                    scheduler.unscheduleAllEvents(occupant.get());
-                }
-                worldModel.moveEntity(this, nextPos);
-            }
-            return false;
-        }
+        return occupant.isPresent() && !(occupant.get() instanceof Fish);
     }
 
     public int getAnimationPeriod()

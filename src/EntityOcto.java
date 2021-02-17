@@ -1,24 +1,23 @@
+import java.util.Optional;
+
 public abstract class EntityOcto extends EntityMoves
 {
-    protected Point nextPositionOcto(Point destPos, WorldModel worldModel)
+    abstract  Entity _transform (WorldModel world, EventScheduler scheduler, ImageStore imageStore);
+    protected boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore)
     {
-        int horiz = Integer.signum(destPos.x - getPosition().x);
-        Point newPos = new Point(getPosition().x + horiz,
-                getPosition().y);
-
-        if (horiz == 0 || worldModel.isOccupied(newPos))
+        if (_transform(world, scheduler, imageStore) != null)
         {
-            int vert = Integer.signum(destPos.y - getPosition().y);
-            newPos = new Point(getPosition().x,
-                    getPosition().y + vert);
+            Entity octo = _transform(world, scheduler, imageStore);
+            world.removeEntity(this);
+            scheduler.unscheduleAllEvents(this);
 
-            if (vert == 0 || worldModel.isOccupied(newPos))
-            {
-                newPos = getPosition();
-            }
+            world.addEntity(octo);
+            ((EntityAction)octo).scheduleActions(world, imageStore, scheduler);
+
+            return true;
         }
 
-        return newPos;
+        return false;
     }
 
 }
