@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Atlantis extends EntityAnimates {
-    public static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
+    private static final int ATLANTIS_ANIMATION_REPEAT_COUNT = 7;
     private String id;
     private Point position;
     private List<PImage> images;

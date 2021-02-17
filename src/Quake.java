@@ -5,7 +5,6 @@ import java.util.Random;
 
 public class Quake extends EntityAnimates {
     private static final int QUAKE_ANIMATION_REPEAT_COUNT = 10;
-
     private String id;
     private Point position;
     private List<PImage> images;
